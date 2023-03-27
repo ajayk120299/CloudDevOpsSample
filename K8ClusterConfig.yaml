@@ -24,6 +24,19 @@ spec:
     requests:
       storage: 5Gi
 
+apiVersion: storage.k8s.io/v1 
+kind: StorageClass#   StorageClass is also useful for creating dynamic PVs. In another scenario, a pod requires 10Mi storage capacity, and you create a PVC for it, 
+                       which you associate with a StorageClass. If Kubernetes cannot find a PV to match your PVC, the StorageClass automatically creates a PV for the PVC.
+metadata:
+  name: standard
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+allowVolumeExpansion: true
+mountOptions:
+  - hard
+volumeBindingMode: Immediate
 ---
 
 apiVersion: v1
